@@ -4,13 +4,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define max 88
+
+
+void clearInputBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 /// Define the student structure
 struct student {
-    char name[88];
-    char gender[88];
-    char id[88];
-    char phnum[88];
-    char paswrd[88];
+    char name[max];
+    char gender[max];
+    char id[max];
+    char phnum[max];
+    char paswrd[max];
     int grd;
     struct student *next;
 };
@@ -40,15 +48,32 @@ void readFile(struct student** head, const char* filename) {
         printf("Error opening file.\n");
         return;
     }
+
     char id[88], paswrd[88], phnum[88], name[88], gender[88];
     int grd;
-    while (fscanf(file, "%s %s %s %s %s %d", name, gender, id, phnum, paswrd, &grd) != EOF) {
-        struct student* newStudent = createStudent(name, gender, id, phnum, paswrd, grd);
+
+    while (fscanf(file, "%87s %87s %87s %87s %87s %d", name, gender, id, phnum, paswrd, &grd) == 6) {
+        // Check if memory allocation fails
+        struct student* newStudent = createStudent(id, paswrd, phnum, name, gender, grd);
+        if (newStudent == NULL) {
+            printf("Memory allocation failed.\n");
+            fclose(file);
+            return;
+        }
+
+        // Insert the new student at the beginning of the list
         newStudent->next = *head;
         *head = newStudent;
     }
+
+    // Check if reading stopped due to a format error
+    if (!feof(file)) {
+        printf("Error reading file. Invalid format.\n");
+    }
+
     fclose(file);
 }
+
 
 // Function to write data from linked list to file
 void writeFile(struct student* head, const char* filename) {
@@ -92,5 +117,34 @@ char * takestring_v2(){
 
     return s;
 }
+
+// Saving changes or not
+void save() {
+    int chk;
+    printf("\nDo you want to save changes ? (1) for yes (or) any other number for no.");
+    scanf("%d", &chk); fflush(stdin);fflush(stdout);
+
+    if (chk == 1) {
+        writeFile(head, "file.csv"); fflush(stdin);fflush(stdout);
+        printf("\n\t\t\t\t<<Student Added Successfuly>>\n");}
+    else { printf("\t\t\t\t<<Data Is NOT Saved>>\n"); }
+}
+
+//Search id fuction
+/*void search_ID(char* id){
+    struct student *search = head;
+    while (search != NULL) {
+        if (strcmp(search->id, id) == 0) {
+            printf("\nID Already Exists.\n");
+            // Prompt for ID input again
+            printf("\nEnter ID: ");
+            scanf("%s", id);
+            // Reset temp pointer to head for rechecking
+            search = head;
+        } else {
+            search = search->next;
+        }
+    }
+}*/
 
 #endif //LIBRARY_LIBRARY_H

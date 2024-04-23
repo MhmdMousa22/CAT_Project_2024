@@ -1,15 +1,16 @@
 #ifndef ADMIN_ADMIN_H
 #define ADMIN_ADMIN_H
-
 #include "Student.h"
 
-char adpas[] = "1234";//admin's pass
+char adpas[30] = "1234";//admin's pass
 
-
+// ADD STUDENT
 void add_student()
 {
     struct student *ptr = NULL;
     struct student *temp = head;
+    struct student *search = head;
+    char id[max];
     if(head == NULL)
     {
         ptr=(struct student*)malloc(sizeof(struct student));
@@ -26,13 +27,28 @@ void add_student()
     ptr->next=NULL;
     printf("Enter new student's name : ");
     //get char
-    scanf("%s",&ptr->name);
+    strcpy(ptr->name, takestring_v2());
     printf("\nEnter their gender :");
     //get char ptr->phnum
     scanf("%s",&ptr->gender);
-    printf("\nEnter ID : ");
     //get char ptr->id
-    scanf("%s",&ptr->id);
+    printf("\nEnter ID : ");
+    scanf("%s", id);
+
+    while (search != NULL) {
+        if (strcmp(search->id, id) == 0) {
+            printf("\nID Already Exists.\n");
+            // Prompt for ID input again
+            printf("\nEnter ID: ");
+            scanf("%s", id);
+            // Reset temp pointer to head for rechecking
+            search = head;
+        } else {
+            search = search->next;
+        }
+    }
+    strcpy(ptr->id, id);
+
     printf("\nEnter phone number :");
     //get char ptr->phnum
     scanf("%s",&ptr->phnum);
@@ -41,12 +57,10 @@ void add_student()
     printf("\nEnter their grade : ");
     scanf("%d",&ptr->grd);
 
-    printf("\n<<Student added successfuly>>\n");
-
+    //save();
 }
 void VA_student()//veiw all students
 {
-
     struct student *temp = head;
     if(temp == NULL)
     {
@@ -56,17 +70,17 @@ void VA_student()//veiw all students
     {
         while(temp)
         {
-            printf("\n ID : %s",temp->id);
-            printf("\nname : %s",temp->name);
-            printf("\n phone number :%s",temp->phnum);
-            printf("\ngender : %s",temp->gender);
-            printf("\n grade : %d",temp->grd);
+            printf("\nName : %s",temp->name);
+            printf("\nID : %s",temp->id);
+            printf("\nphone number :%s",temp->phnum);
+            printf("\nGender : %s",temp->gender);
+            printf("\nGrade : %d\n",temp->grd);
             temp = temp->next;
         }
 
-
     }
 }
+
 void VOI_student(char* id)//veiw one id students
 {
 
@@ -74,7 +88,7 @@ void VOI_student(char* id)//veiw one id students
     int chid=1;
     if(temp == NULL)
     {
-        printf("there is no any student,yet...\n");
+        printf("No students yet..\n");
     }
     else
     {
@@ -82,18 +96,18 @@ void VOI_student(char* id)//veiw one id students
         {
             if(!strcmp( temp->id , id))
             {
-                printf("\n ID : %s",temp->id);
-                printf("\nname : %s",temp->name);
-                printf("\n phone number :%s",temp->phnum);
-                printf("\ngender : %s",temp->gender);
-                printf("\n grade : %d\n",temp->grd);
+                printf("\nName : %s",temp->name);
+                printf("\nID : %s",temp->id);
+                printf("\nPhone number :%s",temp->phnum);
+                printf("\nGender : %s",temp->gender);
+                printf("\nGrade : %d\n",temp->grd);
                 chid = 0;
                 break;
             }
             temp = temp->next;
         }
         if(chid)
-            printf("this ID does NOT exist\n");
+            printf("This ID does NOT exist\n");
 
     }
 
@@ -103,10 +117,10 @@ void E_student(char* id)//edit students
 {
 
     struct student *temp = head;
-    int chid=1,x = 1,r;
+    int chid=1,r;
     if(temp == NULL)
     {
-        printf("there is no any student,yet...\n");
+        printf("No students yet...\n");
     }
     else
     {
@@ -114,8 +128,6 @@ void E_student(char* id)//edit students
         {
             if(!strcmp(temp->id,id))
             {
-                while(x == 1)
-                {
                     back:
                     printf("1-edit student's name\n2-edit student's grade\n3-both of them\n");
                     printf("choose edit operation : ");
@@ -123,56 +135,93 @@ void E_student(char* id)//edit students
                     switch(r)
                     {
                         case 1:
-                            printf("\t\t\tIf you want to go back, press 'b' \n");fflush(stdin);fflush(stdout);
+                            printf("\t\t\tif you select wrong choise, you can back by press '-1' \n");
                             printf("Enter the new name : ");
                             //get char temp->name
-                            scanf("%s",&temp->name);
-                            if(!strcmp(temp->name,"b"))
+                            strcpy(temp->name, takestring_v2());
+                            if(!strcmp(temp->name,"-1"))
                                 goto back;
+                            //save();
                             break;
                         case 2:
-                            printf("\t\t\tIf you want to go back, press 'b' \n");fflush(stdin);fflush(stdout);
-                            printf("\nEnter the new grade(0~100) : ");
+                            printf("\t\t\tif you select wrong choise, you can back by press '-1' \n");
+                            printf("Enter the new Grade : ");
+                            //get char temp->name
                             scanf("%d",&temp->grd);
-                            if(temp->grd == (int)'b')
-                                goto back;
+                            if(temp->grd == -1)  {goto back;}
+                            //save();
                             break;
                         case 3:
-                            printf("\t\t\tIf you want to go back, press 'b' \n");fflush(stdin);fflush(stdout);
+                            printf("\t\t\tif you select wrong choise, you can back by press '-1' \n");
                             printf("Enter the new name : ");
                             //get char temp->name
-                            scanf("%[^\\n]",&temp->name);
-                            if(!strcmp(temp->name,"b"))
+                            strcpy(temp->name, takestring_v2());
+                            if(!strcmp(temp->name,"-1"))
                                 goto back;
-                            printf("\nEnter the new grade(0~100) : ");
+                            printf("Enter the new Grade : ");
                             scanf("%d",&temp->grd);
-                            if(temp->grd == (int)'b')
-                                goto back;
+                            //save();
                             break;
                         default:
                             printf("This option does NOT exist\n");
                             goto back;
                             break;
-                    }
-                    printf("\nIf you want to do another operation, press (1) for YES or any other value for NO :\n");
-                    scanf("%d",&x);
                 }
                 chid = 0;
                 break;
             }
             temp = temp->next;
         }
-        if(x)
-            printf("this ID does NOT exist\n");
+        if(chid)
+            printf("This ID does NOT exist\n");
     }
 
 }
+
+//Delete student function
+void DeleteStudent(char *id)  //delete  student with its id
+{
+    if(head){
+        struct student *temp = head;
+        struct student* pre=NULL;
+        while (temp){
+            if(!strcmp(temp->id,id)){
+                if(pre){
+                    pre->next=temp->next;
+                }
+                else{
+                    head=temp->next;
+
+                }
+                free(temp);
+            }
+
+            pre=temp;
+            temp=temp->next;
+        }
+    }
+    //save();
+}
+
+
+//Edit admin password
 void EA_pas()
 {
-    char *str;
+    char str[30], str1[30];
     printf("Enter new password : ");
+    fflush(stdin); fflush(stdout);
 //get char str
     scanf("%s",&str);
-    strcpy(adpas,str);
+
+    printf("Confirm new password : ");
+    fflush(stdin); fflush(stdout);
+//get char str
+    scanf("%s",&str1);
+    if(!strcmp(str, str1)){
+        strcpy(adpas,str);
+        printf("\t\t\t\t Password Updated Successfully\n");
+    }
+    else {printf("\t\t\t\t Password Is NOT Updated\n");}
+
 }
 #endif //ADMIN_ADMIN_H

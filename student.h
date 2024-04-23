@@ -12,6 +12,7 @@ void voi_student() { // view student record
     // Ask user for ID and password
     printf("Enter your ID: ");
     scanf("%s", id);
+
     printf("Enter your password: ");
     scanf("%s", pass);
 
@@ -21,11 +22,11 @@ void voi_student() { // view student record
     while (temp != NULL) {
         if (strcmp(temp->id, id) == 0 && strcmp(temp->paswrd, pass) == 0) {
             // ID and password match, display student record
-            printf("\n ID : %s", temp->id);
-            printf("\nname : %s", temp->name);
-            printf("\nphone number : %s", temp->phnum);
-            printf("\ngender : %s", temp->gender);
-            printf("\ngrade : %d\n", temp->grd);
+            printf("\nName : %s", temp->name);
+            printf("\nID : %s", temp->id);
+            printf("\nPhone number : %s", temp->phnum);
+            printf("\nGender : %s", temp->gender);
+            printf("\nGrade : %d\n", temp->grd);
             found = 1;
             break;
         }
@@ -33,7 +34,7 @@ void voi_student() { // view student record
     }
 
     if (!found) {
-        printf("Student not found or incorrect ID/password.\n");
+        printf("Student NOT found or Incorrect Password.\n");
     }
 }
 
@@ -54,7 +55,8 @@ void e_name() {  // edit student name
         if (strcmp(temp->id, id) == 0 && strcmp(temp->paswrd, pass) == 0) {
             // ID and password match, allow user to edit name
             printf("Enter the new name: ");
-            scanf("%s", temp->name);
+            strcpy(temp->name, takestring_v2());
+
             printf("Name updated successfully.\n");
             found = 1;
             break;
@@ -70,7 +72,7 @@ void e_name() {  // edit student name
 void e_pass() { // edit student pass
     char id[88];
     char pass[88];
-    char new_pass[88];
+    char new_pass[88], cnfrm_pass[88];
 
     // Ask user for ID and password
     printf("Enter your ID: ");
@@ -86,8 +88,15 @@ void e_pass() { // edit student pass
             // ID and password match, allow user to edit password
             printf("Enter your new password: ");
             scanf("%s", new_pass);
-            strcpy(temp->paswrd, new_pass);
-            printf("Password updated successfully.\n");
+            printf("Confirm new password : ");
+            fflush(stdin); fflush(stdout);
+            //get char str
+            scanf("%s",&cnfrm_pass);
+            if(!strcmp(new_pass, cnfrm_pass)){
+                strcpy(temp->paswrd,new_pass);
+                printf("\t\t\t\t Password Updated Successfully\n");
+            }
+            else {printf("\t\t\t\t Password Is NOT Updated\n");}
             found = 1;
             break;
         }
@@ -116,9 +125,9 @@ void e_phnum() {  // edit student phone number
     while (temp != NULL) {
         if (strcmp(temp->id, id) == 0 && strcmp(temp->paswrd, pass) == 0) {
             // ID and password match, allow user to edit phone number
-            printf("Enter your new phone number: ");
+            printf("Enter your new Phone Number: ");
             scanf("%s", new_phnum);
-            strcpy(temp->phnum, new_phnum);
+            strcpy(temp->paswrd, new_phnum);
             printf("Phone number updated successfully.\n");
             found = 1;
             break;
