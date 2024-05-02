@@ -1,4 +1,4 @@
-![MasterHead](https://www.jackson.stark.k12.oh.us/cms/lib/OH02206107/Centricity/Domain/595/blobid2.gif)
+![MasterHead](https://img.freepik.com/free-vector/welcome-word-flat-cartoon-people-characters_81522-4207.jpg?t=st=1714678757~exp=1714682357~hmac=b212b81c8d795757e0591661e2ad1dbe05d19fd2a203a9b423506ef4c8146b63&w=1800)
 # Student Record System
 
 ~ Overview:
