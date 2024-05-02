@@ -1,3 +1,4 @@
+![MasterHead](https://www.jackson.stark.k12.oh.us/cms/lib/OH02206107/Centricity/Domain/595/blobid2.gif)
 # Student Record System
 
 ~ Overview:
