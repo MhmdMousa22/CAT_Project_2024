@@ -1,4 +1,4 @@
-![MasterHead](https://img.freepik.com/free-vector/welcome-word-flat-cartoon-people-characters_81522-4207.jpg?t=st=1714678757~exp=1714682357~hmac=b212b81c8d795757e0591661e2ad1dbe05d19fd2a203a9b423506ef4c8146b63&w=1800)
+![MasterHead](https://img.freepik.com/free-vector/colorful-welcome-lettering-modern-banner-invitation_1017-50216.jpg?t=st=1714678657~exp=1714682257~hmac=e2d86abf6913cfea54eec94656ee7ffaf6287f0fca13ce6fcafa1e7750fa352b&w=1800)
 # Student Record System
 
 ~ Overview:
