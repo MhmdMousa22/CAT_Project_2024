@@ -167,8 +167,6 @@ void E_student(char* id) //edit students
     char str[8];
     int chid=1,r;
 
-    temp->name = (char*)malloc(max * sizeof(char));
-    tempo.name = (char*)malloc(max * sizeof(char));
 
     if(temp == NULL)
     {
@@ -188,6 +186,8 @@ void E_student(char* id) //edit students
                 switch(r)
                 {
                     case 1:
+                        temp->name = (char*)malloc(max * sizeof(char));
+                        tempo.name = (char*)malloc(max * sizeof(char));
                         printf("\t\t\tIf you want to go back, press (b) \n");
                     chck1:
                         printf("Enter the new name : ");
@@ -217,6 +217,8 @@ void E_student(char* id) //edit students
                         (save())? strcpy(temp->grd, tempo.grd) && printf("\t\t\t\t[[ Changes Have been saved ]]\n"): printf("\t\t\t\t[[ Changes are not saved ]]\n");
                         break;
                     case 3:
+                        temp->name = (char*)malloc(max * sizeof(char));
+                        tempo.name = (char*)malloc(max * sizeof(char));
                         printf("\t\t\tIf you want to go back, press (b) \n");
                     chck:
                         printf("Enter the new name : ");
